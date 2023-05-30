@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Moteldon</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_home">Главная</string>
+    <string name="title_service">Услуги</string>
+    <string name="title_info">Доп. инфо</string>
+    <string name="title_settings">Настройки</string>
+
+    <string name="map">Карта</string>
+    <string name="account">Аккаунт</string>
+    <string name="account_label">Аккаунт</string>
+    <string name="news_label">Новости</string>
+    <string name="back">Назад</string>
+    <string name="suppliers_label">Поставщики:</string>
+    <string name="station_address">station_address</string>
+    <string name="station_name">station_name</string>
+    <string name="supplier_name">supplier_name</string>
+    <string name="account_name">account_name</string>
+    <string name="login_button">Вход</string>
+    <string name="login_box">Логин</string>
+    <string name="password_box">Пароль</string>
+    <string name="exit_button">Выход</string>
+    <string name="station_enabled_text">online</string>
+</resources>
