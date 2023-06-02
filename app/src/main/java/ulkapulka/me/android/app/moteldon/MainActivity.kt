@@ -1,6 +1,7 @@
 package ulkapulka.me.android.app.moteldon
 
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
@@ -10,25 +11,27 @@ import ulkapulka.me.android.app.moteldon.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        var user: User? = null
+        var instance: MainActivity? = null
+    }
+
     private lateinit var binding: ActivityMainBinding
     private val homeFragment = HomeFragment()
     private val serviceFragment = ServiceFragment()
     private val infoFragment = InfoFragment ()
     private val settingsFragment = SettingsFragment()
     private val bottomMenu = findViewById<BottomNavigationView>(R.id.nav_view)
-    private var user: User? = null
+    private val authView = findViewById<FragmentContainerView>(R.id.loginView)
+    private val fragmentView = findViewById<FragmentContainerView>(R.id.fragmentContainerView)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        instance = this
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // TODO: Проверка есть ли сохраненный пользователь
-
-        if (user == null) {
-            // TODO: Скрытие меню
-        }
+        updateVisibility()
 
         bottomMenu.setOnItemSelectedListener {
             when (it.itemId) {
@@ -78,8 +81,15 @@ class MainActivity : AppCompatActivity() {
         bottomMenu.selectedItemId = R.id.home
     }
 
-    fun setUser(user: User) {
-        this.user = user;
-        // TODO: Отображение меню
+    fun updateVisibility() {
+        if (user == null) {
+            authView.visibility = View.VISIBLE
+            fragmentView.visibility = View.INVISIBLE
+            bottomMenu.visibility = View.INVISIBLE
+        } else {
+            authView.visibility = View.INVISIBLE
+            fragmentView.visibility = View.VISIBLE
+            bottomMenu.visibility = View.VISIBLE
+        }
     }
 }

@@ -5,11 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import androidx.appcompat.widget.AppCompatButton
-import androidx.fragment.app.commit
-import ulkapulka.me.android.app.moteldon.core.User
-import ulkapulka.me.android.app.moteldon.utils.Utils
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,10 +13,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [AuthFragment.newInstance] factory method to
+ * Use the [AddFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AuthFragment : Fragment() {
+class AddFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -39,29 +34,7 @@ class AuthFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_auth, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        view.findViewById<AppCompatButton>(R.id.button_login).setOnClickListener {
-            val user = User.valueOf(view.findViewById<EditText>(R.id.editTextLoginLogin).text.toString(),
-                view.findViewById<EditText>(R.id.editTextPasswordLogin).text.toString()
-            )
-            if (user != null) {
-                MainActivity.user = user
-                MainActivity.instance?.updateVisibility()
-            } else {
-                Utils.sendErrorDialog(view.context, "Неверный логин или пароль!")
-            }
-        }
-
-        view.findViewById<AppCompatButton>(R.id.button_signupLogin).setOnClickListener {
-            MainActivity.instance?.supportFragmentManager?.commit{
-                setCustomAnimations(R.anim.open_animator, R.anim.close_animator)
-                replace(R.id.loginView, registrationFragment(), "signup")
-                addToBackStack(null)
-            }
-        }
+        return inflater.inflate(R.layout.fragment_add, container, false)
     }
 
     companion object {
@@ -71,12 +44,12 @@ class AuthFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment AuthFragment.
+         * @return A new instance of fragment AddFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            AuthFragment().apply {
+            AddFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

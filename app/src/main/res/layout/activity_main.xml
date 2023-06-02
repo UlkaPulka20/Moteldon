@@ -20,6 +20,18 @@
         app:layout_constraintVertical_bias="0.0"
         tools:layout="@layout/fragment_home" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/loginView"
+        android:name="ulkapulka.me.android.app.moteldon.AuthFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout="@layout/fragment_auth" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="fill_parent"
