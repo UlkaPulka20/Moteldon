@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.util.TypedValue
-import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
@@ -14,13 +13,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginStart
 import org.mindrot.jbcrypt.BCrypt
 import ulkapulka.me.android.app.moteldon.MainActivity
 import ulkapulka.me.android.app.moteldon.R
 import ulkapulka.me.android.app.moteldon.storage.data.EnterType
 import ulkapulka.me.android.app.moteldon.storage.data.Guest
 import ulkapulka.me.android.app.moteldon.storage.data.GuestEnter
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 
 object Utils {
 
@@ -81,9 +81,9 @@ object Utils {
                 ContextCompat.getDrawable(context, R.drawable.rounded_all_corners_exit),
                 ContextCompat.getColor(context, R.color.white))
         }
-        createButton(context, enter.time, otherLayout,
+        createButton(context, enter.time.format(DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy")), otherLayout,
             ContextCompat.getDrawable(context, R.drawable.rounded_all_corners_time),
-            ContextCompat.getColor(context, R.color.black))
+            ContextCompat.getColor(context, R.color.white))
 
         enterLayout.id = "${enter.guest.name}_${enter.guest.birthday}_${enter.time}_${enter.type}_1".hashCode()
         nameLayout.id = "${enter.guest.name}_${enter.guest.birthday}_${enter.time}_${enter.type}_2".hashCode()
@@ -115,14 +115,14 @@ object Utils {
         otherLayout.layoutParams = otherParams
         otherLayout.orientation = LinearLayout.HORIZONTAL
 
-        createButton(context, guest.name, enterLayout,
-            ContextCompat.getDrawable(context, R.drawable.rounded_all_corners_name),
-            ContextCompat.getColor(context, R.color.black))
-        createButton(context, guest.birthday, otherLayout,
-            ContextCompat.getDrawable(context, R.drawable.rounded_all_corners_birthday),
-            ContextCompat.getColor(context, R.color.black))
         createButton(context, "Комната: ${guest.room.number}", otherLayout,
             ContextCompat.getDrawable(context, R.drawable.rounded_all_corners_room),
+            ContextCompat.getColor(context, R.color.black))
+        createButton(context, guest.birthday.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")), otherLayout,
+            ContextCompat.getDrawable(context, R.drawable.rounded_all_corners_birthday),
+            ContextCompat.getColor(context, R.color.black))
+        createButton(context, guest.name, enterLayout,
+            ContextCompat.getDrawable(context, R.drawable.rounded_all_corners_name),
             ContextCompat.getColor(context, R.color.black))
 
         enterLayout.addView(nameLayout)

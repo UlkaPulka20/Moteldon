@@ -10,7 +10,9 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.commit
+import ulkapulka.me.android.app.moteldon.storage.data.GuestEnter
 import ulkapulka.me.android.app.moteldon.utils.Utils
+import java.time.LocalDateTime
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,8 +51,14 @@ class HomeFragment : Fragment() {
 
         val layout = view.findViewById<LinearLayout>(R.id.home_names_list)
 
-        MainActivity.dataStorage.enters.reversed().forEach {
-            Utils.createGuestEnterLayout(context, it, layout)
+        val map = hashMapOf<LocalDateTime, GuestEnter>()
+
+        MainActivity.dataStorage.enters.forEach {
+            map[it.time] = it
+        }
+
+        map.toSortedMap(compareByDescending { it }).forEach {
+            Utils.createGuestEnterLayout(context, it.value, layout)
         }
 
         view.findViewById<ImageButton>(R.id.home_add_button).setOnClickListener {

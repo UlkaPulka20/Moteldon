@@ -13,6 +13,9 @@ import ulkapulka.me.android.app.moteldon.storage.data.EnterType
 import ulkapulka.me.android.app.moteldon.storage.data.GuestEnter
 import ulkapulka.me.android.app.moteldon.utils.Utils
 import java.lang.Exception
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,14 +59,19 @@ class AddGuestEnterFragment : Fragment() {
             try {
                 val dataStorage = MainActivity.dataStorage
                 val guest = dataStorage.getGuestByName(guestName.text.toString())
-
+                val settedTime = try {
+                    LocalDateTime.parse(time.text.toString(), DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy"));
+                } catch (e: Exception) {
+                    val text = time.text.toString().replace(" ", "").split(":")
+                    LocalDateTime.now().withHour(text[0].toInt()).withMinute(text[1].toInt())
+                }
                 if (guest == null) {
                     Utils.sendErrorDialog(MainActivity.context!!, "Гость не найден!")
                 } else {
                     dataStorage.addEnter(GuestEnter(guest, when(isEntered.isChecked) {
                         true -> EnterType.JOIN
                         false -> EnterType.EXIT
-                    }, time.text.toString()))
+                    }, settedTime))
 
                     Utils.sendErrorDialog(MainActivity.context!!, "Добавлено!")
                     MainActivity.instance?.supportFragmentManager?.commit {

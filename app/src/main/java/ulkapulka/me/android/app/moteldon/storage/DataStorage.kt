@@ -1,34 +1,36 @@
 package ulkapulka.me.android.app.moteldon.storage
 
-import kotlinx.serialization.Serializable
 import ulkapulka.me.android.app.moteldon.storage.data.EnterType
 import ulkapulka.me.android.app.moteldon.storage.data.Guest
 import ulkapulka.me.android.app.moteldon.storage.data.GuestEnter
 import ulkapulka.me.android.app.moteldon.storage.data.Room
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
 
-@Serializable
 class DataStorage {
 
     val enters = mutableListOf<GuestEnter>()
     val guests = mutableListOf<Guest>()
 
     init {
-        val firstGuest = Guest("Гарри Поттер", "10.05.2001", Room(3))
-        val secondGuest = Guest("Иван Герасимов", "06.02.1995", Room(5))
-        val thirdGuest = Guest("Олег Авдеев", "25.12.1993", Room(17))
-        val fourthGuest = Guest("Гермиона Грейнджер", "17.11.2001", Room(3))
+        val firstGuest = Guest("Гарри Поттер", LocalDate.now(), Room(3))
+        val secondGuest = Guest("Иван Герасимов", LocalDate.now(), Room(5))
+        val thirdGuest = Guest("Олег Авдеев", LocalDate.now(), Room(17))
+        val fourthGuest = Guest("Гермиона Грейнджер", LocalDate.now(), Room(3))
         addGuest(firstGuest)
         addGuest(secondGuest)
         addGuest(thirdGuest)
         addGuest(fourthGuest)
-        addEnter(GuestEnter(firstGuest, EnterType.JOIN, "10:23"))
-        addEnter(GuestEnter(firstGuest, EnterType.EXIT, "12:00"))
-        addEnter(GuestEnter(secondGuest, EnterType.JOIN, "18:30"))
-        addEnter(GuestEnter(secondGuest, EnterType.EXIT, "23:15"))
-        addEnter(GuestEnter(thirdGuest, EnterType.JOIN, "12:37"))
-        addEnter(GuestEnter(thirdGuest, EnterType.EXIT, "16:12"))
-        addEnter(GuestEnter(fourthGuest, EnterType.JOIN, "11:28"))
-        addEnter(GuestEnter(fourthGuest, EnterType.EXIT, "12:01"))
+        addEnter(GuestEnter(firstGuest, EnterType.JOIN, LocalDateTime.ofInstant(Instant.now().plusSeconds(10000), ZoneId.systemDefault())))
+        addEnter(GuestEnter(firstGuest, EnterType.EXIT, LocalDateTime.ofInstant(Instant.now().plusSeconds(180000), ZoneId.systemDefault())))
+        addEnter(GuestEnter(secondGuest, EnterType.JOIN, LocalDateTime.ofInstant(Instant.now().plusSeconds(50000), ZoneId.systemDefault())))
+        addEnter(GuestEnter(secondGuest, EnterType.EXIT, LocalDateTime.ofInstant(Instant.now().plusSeconds(230000), ZoneId.systemDefault())))
+        addEnter(GuestEnter(thirdGuest, EnterType.JOIN, LocalDateTime.ofInstant(Instant.now().plusSeconds(80000), ZoneId.systemDefault())))
+        addEnter(GuestEnter(thirdGuest, EnterType.EXIT, LocalDateTime.ofInstant(Instant.now().plusSeconds(740000), ZoneId.systemDefault())))
+        addEnter(GuestEnter(fourthGuest, EnterType.JOIN, LocalDateTime.ofInstant(Instant.now().plusSeconds(100000), ZoneId.systemDefault())))
+        addEnter(GuestEnter(fourthGuest, EnterType.EXIT, LocalDateTime.ofInstant(Instant.now().plusSeconds(900000), ZoneId.systemDefault())))
     }
 
     fun addEnter(enter: GuestEnter) {

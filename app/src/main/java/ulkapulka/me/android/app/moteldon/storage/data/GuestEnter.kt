@@ -1,6 +1,6 @@
 package ulkapulka.me.android.app.moteldon.storage.data
 
 import kotlinx.serialization.Serializable
+import java.time.LocalDateTime
 
-@Serializable
-data class GuestEnter(val guest: Guest, val type: EnterType, val time: String)
+data class GuestEnter(val guest: Guest, val type: EnterType, val time: LocalDateTime)

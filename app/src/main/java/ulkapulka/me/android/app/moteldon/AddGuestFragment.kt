@@ -15,6 +15,9 @@ import ulkapulka.me.android.app.moteldon.storage.data.GuestEnter
 import ulkapulka.me.android.app.moteldon.storage.data.Room
 import ulkapulka.me.android.app.moteldon.utils.Utils
 import java.lang.Exception
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,6 +61,7 @@ class AddGuestFragment : Fragment() {
             try {
                 val dataStorage = MainActivity.dataStorage
                 val guest = dataStorage.getGuestByName(guestName.text.toString())
+                val settedDate = LocalDate.parse(guestBirthday.text.toString(), DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
                 if (guest != null) {
                     Utils.sendErrorDialog(MainActivity.context!!, "Гость уже добавлен!")
@@ -66,8 +70,9 @@ class AddGuestFragment : Fragment() {
                     if (roomNumber > MainActivity.settings.maxRooms) {
                         Utils.sendErrorDialog(MainActivity.context!!, "Такой комнаты не существует!")
                     } else {
+                        println(guestBirthday.text.toString())
                         dataStorage.addGuest(Guest(guestName.text.toString(),
-                            guestBirthday.text.toString(),
+                            settedDate,
                             Room(roomNumber)
                         ))
 
