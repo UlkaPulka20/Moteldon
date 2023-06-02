@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddGuestEnterFragment">
+
+    <Button
+        android:id="@+id/add_guest_enter_add_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400dp"
+        android:layout_marginStart="130dp"
+        android:text="Добавить" />
+
+    <Button
+        android:id="@+id/add_guest_enter_back_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="450dp"
+        android:layout_marginStart="130dp"
+        android:text="Назад" />
+
+    <EditText
+        android:id="@+id/guest_enter_name_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="96dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Имя гостя" />
+
+    <EditText
+        android:id="@+id/guest_enter_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:layout_marginStart="96dp"
+        android:ems="10"
+        android:inputType="time"
+        android:text="Время" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="170dp"
+        android:layout_marginStart="96dp">
+
+        <RadioButton
+            android:id="@+id/enter_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Зашёл" />
+
+        <RadioButton
+            android:id="@+id/exit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Вышел" />
+
+    </RadioGroup>
+
+
+
+</RelativeLayout>

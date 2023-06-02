@@ -5,6 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import androidx.fragment.app.commit
+import ulkapulka.me.android.app.moteldon.storage.data.Guest
+import ulkapulka.me.android.app.moteldon.storage.data.Room
+import ulkapulka.me.android.app.moteldon.utils.Utils
+import java.lang.Exception
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,6 +42,22 @@ class SettingsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_settings, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val maxRooms = view.findViewById<EditText>(R.id.settings_rooms_edit)
+        maxRooms.setText(MainActivity.settings.maxRooms.toString())
+
+        view.findViewById<Button>(R.id.settings_save_button).setOnClickListener {
+            try {
+                MainActivity.settings.maxRooms = maxRooms.text.toString().toInt()
+                Utils.sendErrorDialog(MainActivity.context!!, "Сохранено!")
+            } catch (e: Exception) {
+                Utils.sendErrorDialog(MainActivity.context!!, e.message)
+            }
+        }
     }
 
     companion object {

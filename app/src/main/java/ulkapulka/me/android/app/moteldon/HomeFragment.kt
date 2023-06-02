@@ -5,6 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.commit
+import ulkapulka.me.android.app.moteldon.utils.Utils
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,6 +42,26 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val context = MainActivity.context!!
+
+        val layout = view.findViewById<LinearLayout>(R.id.home_names_list)
+
+        MainActivity.dataStorage.enters.reversed().forEach {
+            Utils.createGuestEnterLayout(context, it, layout)
+        }
+
+        view.findViewById<ImageButton>(R.id.home_add_button).setOnClickListener {
+            MainActivity.instance?.supportFragmentManager?.commit {
+                setCustomAnimations(R.anim.open_animator, R.anim.close_animator)
+                replace(R.id.fragmentContainerView, AddGuestEnterFragment(), "guest_enter_add")
+                addToBackStack(null)
+            }
+        }
+    }
+
 
     companion object {
         /**

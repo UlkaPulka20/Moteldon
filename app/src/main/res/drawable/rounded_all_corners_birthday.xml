@@ -3,7 +3,10 @@
 
     <solid android:color="#6CF43B" />
 
-    <solid style="@style/Theme.AstraFuel" android:color="?colorOnPrimary" />
+    <gradient
+            android:startColor="#E4E4E4"
+            android:endColor="#EBEBEB"
+            android:angle="45"/>
 
     <corners android:radius="1500dp" />
 </shape>

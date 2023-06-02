@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import ulkapulka.me.android.app.moteldon.utils.Utils
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -13,10 +16,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [MenuInfoFragment.newInstance] factory method to
+ * Use the [RoomsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MenuInfoFragment : Fragment() {
+class RoomsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -34,7 +37,24 @@ class MenuInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu_info, container, false)
+        return inflater.inflate(R.layout.fragment_rooms, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val context = MainActivity.context!!
+        val dataStorage = MainActivity.dataStorage
+
+        val layout = view.findViewById<LinearLayout>(R.id.rooms_names_list)
+        for (i in 1..MainActivity.settings.maxRooms) {
+            val guests = dataStorage.getGuestsByRoom(i)
+            if (guests.isNotEmpty()) {
+                Utils.createRoomsLayout(context, i, guests, layout)
+            }
+        }
+
+        view.findViewById<TextView>(R.id.rooms_count).text = "${dataStorage.countRooms()}/${MainActivity.settings.maxRooms}"
     }
 
     companion object {
@@ -44,12 +64,12 @@ class MenuInfoFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MenuInfoFragment.
+         * @return A new instance of fragment SecondFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MenuInfoFragment().apply {
+            RoomsFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

@@ -3,22 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuInfoFragment">
-
+    tools:context=".GuestsFragment">
 
     <TextView
-        android:id="@+id/menu"
+        android:id="@+id/timearrival"
         android:layout_width="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_marginStart="20dp"
         android:textColor="?colorSecondary"
         android:textSize="30sp"
         android:layout_height="wrap_content"
         android:layout_gravity="top|start"
-        android:text="menu\n" />
+        android:text="Гости" />
 
     <ImageButton
-        android:id="@+id/editmenu_button"
+        android:id="@+id/guests_add_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="330dp"
@@ -26,7 +25,7 @@
         android:background="@drawable/rounded_button"
         android:contentDescription="@string/back"
         android:scaleType="centerCrop"
-        android:src="@drawable/baseline_edit_24" />
+        android:src="@drawable/baseline_add_box_24" />
 
     <View
         android:layout_width="190dp"
@@ -40,14 +39,18 @@
         android:layout_marginTop="102dp"
         android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/names_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:orientation="vertical" >
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/guests_names_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:orientation="vertical" >
+        </LinearLayout>
+
     </ScrollView>
+
+
+
 
 </RelativeLayout>

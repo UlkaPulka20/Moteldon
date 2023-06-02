@@ -7,14 +7,14 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/service"
-        android:icon="@drawable/baseline_format_list_bulleted_24"
-        android:title="@string/title_service" />
+        android:id="@+id/guests"
+        android:icon="@drawable/baseline_people_24"
+        android:title="Гости" />
 
     <item
-        android:id="@+id/info"
-        android:icon="@drawable/baseline_list_alt_24"
-        android:title="@string/title_info" />
+        android:id="@+id/rooms"
+        android:icon="@drawable/baseline_bedroom_child_24"
+        android:title="Комнаты" />
 
     <item
         android:id="@+id/settings"
