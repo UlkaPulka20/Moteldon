@@ -55,12 +55,20 @@ class AddGuestEnterFragment : Fragment() {
         val isEntered = view.findViewById<RadioButton>(R.id.enter_button)
         val time = view.findViewById<EditText>(R.id.guest_enter_time)
 
+        time.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy")))
+
+        guestName.setOnFocusChangeListener { _, _ ->
+            if (guestName.text.toString() == "Имя гостя") {
+                guestName.setText("")
+            }
+        }
+
         view.findViewById<Button>(R.id.add_guest_enter_add_button).setOnClickListener {
             try {
                 val dataStorage = MainActivity.dataStorage
                 val guest = dataStorage.getGuestByName(guestName.text.toString())
                 val settedTime = try {
-                    LocalDateTime.parse(time.text.toString(), DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy"));
+                    LocalDateTime.parse(time.text.toString(), DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy"))
                 } catch (e: Exception) {
                     val text = time.text.toString().replace(" ", "").split(":")
                     LocalDateTime.now().withHour(text[0].toInt()).withMinute(text[1].toInt())

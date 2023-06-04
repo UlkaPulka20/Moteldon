@@ -8,19 +8,25 @@ import androidx.fragment.app.commit
 import ulkapulka.me.android.app.moteldon.databinding.ActivityMainBinding
 import ulkapulka.me.android.app.moteldon.storage.DataStorage
 import ulkapulka.me.android.app.moteldon.storage.Settings
+import ulkapulka.me.android.app.moteldon.utils.Utils
+import java.io.File
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
         var instance: MainActivity? = null
         var context: Context? = null
-        val dataStorage = DataStorage()
-        val settings = Settings()
+        var dataStorage: DataStorage = DataStorage()
+        var settings: Settings = Settings()
+        var dataFile: File? = null
+        var settingsFile: File? = null
     }
 
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        loadFiles()
         super.onCreate(savedInstanceState)
         instance = this
         context = this
@@ -74,5 +80,26 @@ class MainActivity : AppCompatActivity() {
             }
         }
         bottomMenu.selectedItemId = R.id.home
+    }
+
+    fun loadFiles() {
+        dataFile = File(filesDir, "data.mtd")
+        settingsFile = File(filesDir, "settings.mtd")
+        if (dataFile!!.exists()) {
+            dataStorage = try {
+                Utils.readFromFile(dataFile!!)
+            } catch (e: Exception) {
+                Utils.sendErrorDialog(this, "Ошибка при загрузке данных с памяти!")
+                DataStorage()
+            }
+        }
+        if (settingsFile!!.exists()) {
+            settings = try {
+                Utils.readFromFile(settingsFile!!)
+            } catch (e: Exception) {
+                Utils.sendErrorDialog(this, "Ошибка при загрузке настроек с памяти!")
+                Settings()
+            }
+        }
     }
 }

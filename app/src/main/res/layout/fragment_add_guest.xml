@@ -22,6 +22,17 @@
         android:layout_marginStart="130dp"
         android:text="Назад" />
 
+    <TextView
+        android:id="@+id/guestLabel"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="113dp"
+        android:layout_marginStart="14dp"
+        android:textColor="?colorSecondary"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:text="Имя Гостя:" />
+
     <EditText
         android:id="@+id/guest_name_edit"
         android:layout_width="wrap_content"
@@ -32,6 +43,17 @@
         android:inputType="text"
         android:text="Имя" />
 
+    <TextView
+        android:id="@+id/guestLabelFirst"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="205dp"
+        android:layout_marginStart="15dp"
+        android:textColor="?colorSecondary"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:text="День\nрождения:" />
+
     <EditText
         android:id="@+id/guest_birthday_edit"
         android:layout_width="wrap_content"
@@ -41,6 +63,28 @@
         android:ems="10"
         android:inputType="date"
         android:text="День рождения" />
+
+    <TextView
+        android:id="@+id/roomLabel"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="314dp"
+        android:layout_marginStart="20dp"
+        android:textColor="?colorSecondary"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:text="Комната:" />
+
+    <TextView
+        android:id="@+id/timeLabelSecond"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="240dp"
+        android:layout_marginStart="120dp"
+        android:textColor="?colorOnSecondary"
+        android:textSize="14sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:text="(К примеру: 03.06.2003)" />
 
     <EditText
         android:id="@+id/guest_room_edit"

@@ -53,6 +53,7 @@ class SettingsFragment : Fragment() {
         view.findViewById<Button>(R.id.settings_save_button).setOnClickListener {
             try {
                 MainActivity.settings.maxRooms = maxRooms.text.toString().toInt()
+                Utils.writeToFile(MainActivity.settings, MainActivity.settingsFile!!)
                 Utils.sendErrorDialog(MainActivity.context!!, "Сохранено!")
             } catch (e: Exception) {
                 Utils.sendErrorDialog(MainActivity.context!!, e.message)

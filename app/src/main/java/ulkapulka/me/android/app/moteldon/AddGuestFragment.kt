@@ -57,11 +57,19 @@ class AddGuestFragment : Fragment() {
         val guestBirthday = view.findViewById<EditText>(R.id.guest_birthday_edit)
         val guestRoom = view.findViewById<EditText>(R.id.guest_room_edit)
 
+        guestBirthday.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
+        guestRoom.setText("1")
+
+        guestName.setOnFocusChangeListener { _, _ ->
+            if (guestName.text.toString() == "Имя гостя") {
+                guestName.setText("")
+            }
+        }
         view.findViewById<Button>(R.id.add_guest_add_button).setOnClickListener {
             try {
                 val dataStorage = MainActivity.dataStorage
                 val guest = dataStorage.getGuestByName(guestName.text.toString())
-                val settedDate = LocalDate.parse(guestBirthday.text.toString(), DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+                val settedDate = LocalDate.parse(guestBirthday.text.toString(), DateTimeFormatter.ofPattern("dd.MM.yyyy"))
 
                 if (guest != null) {
                     Utils.sendErrorDialog(MainActivity.context!!, "Гость уже добавлен!")

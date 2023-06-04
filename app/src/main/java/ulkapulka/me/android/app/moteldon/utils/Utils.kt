@@ -1,45 +1,55 @@
 package ulkapulka.me.android.app.moteldon.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
-import android.util.TypedValue
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.MultiAutoCompleteTextView
-import android.widget.RelativeLayout
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import org.mindrot.jbcrypt.BCrypt
+import kotlinx.serialization.DeserializationStrategy
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.Json.Default.serializersModule
+import kotlinx.serialization.serializer
 import ulkapulka.me.android.app.moteldon.MainActivity
 import ulkapulka.me.android.app.moteldon.R
 import ulkapulka.me.android.app.moteldon.storage.data.EnterType
 import ulkapulka.me.android.app.moteldon.storage.data.Guest
 import ulkapulka.me.android.app.moteldon.storage.data.GuestEnter
-import java.text.SimpleDateFormat
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.time.format.DateTimeFormatter
 
+
 object Utils {
-
-    fun bcryptHash(input: String): String {
-        return BCrypt.hashpw(input, BCrypt.gensalt())
-    }
-
-    fun bcryptCheck(input: String, hash: String): Boolean {
-        return BCrypt.checkpw(input, hash)
-    }
 
     fun sendErrorDialog(context: Context, message: String?) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
-    fun checkPermission(permission: String, requestCode: Int) {
-        if (ContextCompat.checkSelfPermission(MainActivity.context!!, permission) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(MainActivity.instance!!, arrayOf(permission), requestCode)
+    inline fun <reified T> writeToFile(value: T, file: File) {
+        val stream = FileOutputStream(file)
+        try {
+            stream.write(Json.encodeToString(serializersModule.serializer(), value).toByteArray())
+        } catch (e: Exception) {
+            sendErrorDialog(MainActivity.context!!, e.message)
+        } finally {
+            stream.close()
         }
+    }
+
+    inline fun <reified T> readFromFile(file: File): T {
+        val bytes = ByteArray(file.length().toInt())
+        val inputStream = FileInputStream(file)
+        try {
+            inputStream.read(bytes)
+        } catch (e: Exception) {
+            sendErrorDialog(MainActivity.context!!, e.message)
+        } finally {
+            inputStream.close()
+        }
+        return Json.decodeFromString(serializersModule.serializer(), String(bytes))
     }
 
     fun createGuestEnterLayout(context: Context, enter: GuestEnter, layout: LinearLayout) {
@@ -177,6 +187,7 @@ object Utils {
         layout.addView(enterLayout)
     }
 
+    @SuppressLint("SetTextI18n")
     fun createButton(context: Context, text: String, layout: LinearLayout, background: Drawable?, color: Int) {
         val btnTag = Button(context)
         val params = LinearLayout.LayoutParams(
@@ -190,31 +201,6 @@ object Utils {
         btnTag.text = "  $text  "
         btnTag.textSize = 12F
         layout.addView(btnTag)
-    }
-
-    fun getThemeTextColor(context: Context): Int {
-        val typedValue = TypedValue()
-        context.theme.resolveAttribute(com.google.android.material.R.attr.colorSecondaryVariant, typedValue, true)
-        return typedValue.data
-    }
-
-    private fun setTextBlock(context: Context, layout: ViewGroup, textStr: String, params: RelativeLayout.LayoutParams, color: Int) {
-        val text = MultiAutoCompleteTextView(context)
-        text.setText(textStr)
-        text.isEnabled = false
-        text.textSize = 15F
-        text.setTextColor(color)
-        text.layoutParams = params
-        layout.addView(text)
-    }
-
-    private fun setText(context: Context, layout: ViewGroup, textStr: String, params: RelativeLayout.LayoutParams, color: Int) {
-        val text = TextView(context)
-        text.text = textStr
-        text.textSize = 15F
-        text.setTextColor(color)
-        text.layoutParams = params
-        layout.addView(text)
     }
 
 }
