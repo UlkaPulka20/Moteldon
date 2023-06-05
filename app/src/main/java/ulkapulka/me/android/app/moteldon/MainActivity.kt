@@ -2,7 +2,6 @@ package ulkapulka.me.android.app.moteldon
 
 import android.content.Context
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import ulkapulka.me.android.app.moteldon.databinding.ActivityMainBinding
@@ -33,11 +32,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val bottomMenu = findViewById<BottomNavigationView>(R.id.nav_view)
-        bottomMenu.setOnItemSelectedListener {
+        binding.navView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> {
-                    if (bottomMenu.selectedItemId != R.id.home) {
+                    if (binding.navView.selectedItemId != R.id.home) {
                         supportFragmentManager.commit {
                             setCustomAnimations(R.anim.open_animator, R.anim.close_animator)
                             replace(R.id.fragmentContainerView, HomeFragment(), "home")
@@ -47,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.rooms -> {
-                    if (bottomMenu.selectedItemId != R.id.rooms) {
+                    if (binding.navView.selectedItemId != R.id.rooms) {
                         supportFragmentManager.commit {
                             setCustomAnimations(R.anim.open_animator, R.anim.close_animator)
                             replace(R.id.fragmentContainerView, RoomsFragment(), "rooms")
@@ -57,17 +55,17 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.guests -> {
-                    if (bottomMenu.selectedItemId != R.id.guests) {
+                    if (binding.navView.selectedItemId != R.id.guests) {
                         supportFragmentManager.commit {
                             setCustomAnimations(R.anim.open_animator, R.anim.close_animator)
-                            replace(R.id.fragmentContainerView, GuestsFragment (), "guests")
+                            replace(R.id.fragmentContainerView, GuestsFragment(), "guests")
                             addToBackStack(null)
                         }
                     }
                     true
                 }
                 R.id.settings -> {
-                    if (bottomMenu.selectedItemId != R.id.settings) {
+                    if (binding.navView.selectedItemId != R.id.settings) {
                         supportFragmentManager.commit {
                             setCustomAnimations(R.anim.open_animator, R.anim.close_animator)
                             replace(R.id.fragmentContainerView, SettingsFragment(), "settings")
@@ -79,7 +77,7 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        bottomMenu.selectedItemId = R.id.home
+        binding.navView.selectedItemId = R.id.home
     }
 
     fun loadFiles() {
@@ -89,7 +87,7 @@ class MainActivity : AppCompatActivity() {
             dataStorage = try {
                 Utils.readFromFile(dataFile!!)
             } catch (e: Exception) {
-                Utils.sendErrorDialog(this, "Ошибка при загрузке данных с памяти!")
+                Utils.sendDialog(this, "Ошибка при загрузке данных с памяти!")
                 DataStorage()
             }
         }
@@ -97,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             settings = try {
                 Utils.readFromFile(settingsFile!!)
             } catch (e: Exception) {
-                Utils.sendErrorDialog(this, "Ошибка при загрузке настроек с памяти!")
+                Utils.sendDialog(this, "Ошибка при загрузке настроек с памяти!")
                 Settings()
             }
         }

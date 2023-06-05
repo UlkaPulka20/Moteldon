@@ -7,16 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.RadioButton
 import androidx.fragment.app.commit
-import ulkapulka.me.android.app.moteldon.storage.data.EnterType
 import ulkapulka.me.android.app.moteldon.storage.data.Guest
-import ulkapulka.me.android.app.moteldon.storage.data.GuestEnter
 import ulkapulka.me.android.app.moteldon.storage.data.Room
 import ulkapulka.me.android.app.moteldon.utils.Utils
 import java.lang.Exception
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 // TODO: Rename parameter arguments, choose names that match
@@ -59,41 +55,49 @@ class AddGuestFragment : Fragment() {
 
         guestBirthday.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
         guestRoom.setText("1")
-
         guestName.setOnFocusChangeListener { _, _ ->
-            if (guestName.text.toString() == "Имя гостя") {
+            if (guestName.text.toString() == "Имя") {
                 guestName.setText("")
             }
         }
+
         view.findViewById<Button>(R.id.add_guest_add_button).setOnClickListener {
             try {
                 val dataStorage = MainActivity.dataStorage
-                val guest = dataStorage.getGuestByName(guestName.text.toString())
-                val settedDate = LocalDate.parse(guestBirthday.text.toString(), DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+                val name = guestName.text.toString()
+                if (name.isEmpty()) {
+                    Utils.sendDialog(MainActivity.context!!, "Имя не может быть пустым!")
+                    return@setOnClickListener
+                }
 
+                val birthdayText = guestBirthday.text.toString()
+                if (birthdayText.isEmpty()) {
+                    Utils.sendDialog(MainActivity.context!!, "День рождения не может быть пустым!")
+                    return@setOnClickListener
+                }
+                val guest = dataStorage.getGuestByName(name)
                 if (guest != null) {
-                    Utils.sendErrorDialog(MainActivity.context!!, "Гость уже добавлен!")
-                } else {
-                    val roomNumber = guestRoom.text.toString().toInt()
-                    if (roomNumber > MainActivity.settings.maxRooms) {
-                        Utils.sendErrorDialog(MainActivity.context!!, "Такой комнаты не существует!")
-                    } else {
-                        println(guestBirthday.text.toString())
-                        dataStorage.addGuest(Guest(guestName.text.toString(),
-                            settedDate,
-                            Room(roomNumber)
-                        ))
-
-                        Utils.sendErrorDialog(MainActivity.context!!, "Добавлено!")
-                        MainActivity.instance?.supportFragmentManager?.commit {
-                            setCustomAnimations(R.anim.open_animator, R.anim.close_animator)
-                            replace(R.id.fragmentContainerView, GuestsFragment(), "guests")
-                            addToBackStack(null)
-                        }
-                    }
+                    Utils.sendDialog(MainActivity.context!!, "Гость уже добавлен!")
+                    return@setOnClickListener
+                }
+                val roomNumber = guestRoom.text.toString().toInt()
+                if (roomNumber > MainActivity.settings.maxRooms || roomNumber <= 0) {
+                    Utils.sendDialog(MainActivity.context!!, "Такой комнаты не существует!")
+                    return@setOnClickListener
+                }
+                val settedDate = LocalDate.parse(birthdayText, DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+                dataStorage.addGuest(Guest(name,
+                    settedDate,
+                    Room(roomNumber)
+                ))
+                Utils.sendDialog(MainActivity.context!!, "Добавлено!")
+                MainActivity.instance?.supportFragmentManager?.commit {
+                    setCustomAnimations(R.anim.open_animator, R.anim.close_animator)
+                    replace(R.id.fragmentContainerView, GuestsFragment(), "guests")
+                    addToBackStack(null)
                 }
             } catch (e: Exception) {
-                Utils.sendErrorDialog(MainActivity.context!!, e.message)
+                Utils.sendDialog(MainActivity.context!!, e.message)
             }
         }
 

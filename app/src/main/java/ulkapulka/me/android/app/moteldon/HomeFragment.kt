@@ -1,18 +1,23 @@
 package ulkapulka.me.android.app.moteldon
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
-import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import ulkapulka.me.android.app.moteldon.adapters.GuestAdapter
+import ulkapulka.me.android.app.moteldon.adapters.GuestEnterAdapter
+import ulkapulka.me.android.app.moteldon.databinding.ActivityMainBinding
+import ulkapulka.me.android.app.moteldon.gestures.SwipeGesture
 import ulkapulka.me.android.app.moteldon.storage.data.GuestEnter
 import ulkapulka.me.android.app.moteldon.utils.Utils
 import java.time.LocalDateTime
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,17 +54,23 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val context = MainActivity.context!!
 
-        val layout = view.findViewById<LinearLayout>(R.id.home_names_list)
+        val guestsView = view.findViewById<RecyclerView>(R.id.namesView)
+        val dataStorage = MainActivity.dataStorage
 
-        val map = hashMapOf<LocalDateTime, GuestEnter>()
-
-        MainActivity.dataStorage.enters.forEach {
-            map[it.time] = it
+        val adapter = GuestEnterAdapter()
+        val data = dataStorage.enters
+        data.sortByDescending { it.time }
+        adapter.data = data
+        val swipe = object : SwipeGesture() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                adapter.removeEnter(viewHolder.layoutPosition)
+            }
         }
 
-        map.toSortedMap(compareByDescending { it }).forEach {
-            Utils.createGuestEnterLayout(context, it.value, layout)
-        }
+        ItemTouchHelper(swipe).attachToRecyclerView(guestsView)
+
+        guestsView.layoutManager = LinearLayoutManager(context)
+        guestsView.adapter = adapter
 
         view.findViewById<ImageButton>(R.id.home_add_button).setOnClickListener {
             MainActivity.instance?.supportFragmentManager?.commit {

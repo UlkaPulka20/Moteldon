@@ -7,6 +7,7 @@ import ulkapulka.me.android.app.moteldon.storage.data.Guest
 import ulkapulka.me.android.app.moteldon.storage.data.GuestEnter
 import ulkapulka.me.android.app.moteldon.storage.data.Room
 import ulkapulka.me.android.app.moteldon.utils.Utils
+import java.lang.Exception
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -19,24 +20,25 @@ class DataStorage {
     val guests = mutableListOf<Guest>()
 
     fun addEnter(enter: GuestEnter) {
-        enters.remove(enter)
+        removeEnter(enter)
         enters.add(enter)
         saveToFile()
     }
 
     fun removeEnter(enter: GuestEnter) {
-        enters.remove(enter)
+        enters.removeIf { it.guestId == enter.guestId && it.type == enter.type && it.time.isEqual(enter.time) }
         saveToFile()
     }
 
     fun addGuest(guest: Guest) {
-        guests.remove(guest)
+        removeGuest(guest)
         guests.add(guest)
         saveToFile()
     }
 
     fun removeGuest(guest: Guest) {
-        guests.remove(guest)
+        guests.removeIf { it.getId() == guest.getId() }
+        enters.removeIf { it.guestId == guest.getId() }
         saveToFile()
     }
 
@@ -44,11 +46,29 @@ class DataStorage {
         Utils.writeToFile(this, MainActivity.dataFile!!)
     }
 
-    fun getGuestByName(name: String): Guest? {
-        val currentName = name.lowercase().replace(" ", "")
+    fun getGuest(guestEnter: GuestEnter): Guest? {
+        val id = guestEnter.guestId
         guests.forEach {
-            if (currentName == it.name.lowercase().replace(" ", "")) {
+            if (id == it.getId()) {
                 return it
+            }
+        }
+        return null
+    }
+
+    fun getGuestByName(name: String): Guest? {
+        val nameLower = name.lowercase().replace("ё", "е")
+        val nameReplace = nameLower.replace(" ", "")
+        val nameSplit = nameLower.split(" ", "").toMutableList()
+        nameSplit.removeIf { it.isEmpty() }
+        guests.forEach { guest ->
+            val currentLower = guest.name.lowercase().replace("ё", "е")
+            val currentReplace = currentLower.replace(" ", "")
+            val currentSplit = currentLower.split(" ", "").toMutableList()
+            currentSplit.removeIf { it.isEmpty() }
+
+            if (nameReplace == currentReplace || nameSplit.containsAll(currentSplit)) {
+                return guest
             }
         }
         return null

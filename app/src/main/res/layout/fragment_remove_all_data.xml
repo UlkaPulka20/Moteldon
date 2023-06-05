@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    tools:context=".RemoveAllDataFragment">
+
+    <TextView
+        android:id="@+id/removeAllDataText"
+        android:layout_width="wrap_content"
+        android:textColor="?colorSecondary"
+        android:layout_marginTop="200dp"
+        android:layout_marginStart="30dp"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:text="Вы действительно\nхотите удалить\nвсе данные?" />
+
+    <Button
+        android:id="@+id/delete_yes_button"
+        android:layout_width="130dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="400dp"
+        android:text="Да" />
+
+    <Button
+        android:id="@+id/delete_no_button"
+        android:layout_width="130dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginStart="200dp"
+        android:text="Нет" />
+
+</RelativeLayout>

@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.commit
-import ulkapulka.me.android.app.moteldon.storage.data.Guest
-import ulkapulka.me.android.app.moteldon.storage.data.Room
 import ulkapulka.me.android.app.moteldon.utils.Utils
 import java.lang.Exception
 
@@ -52,11 +50,28 @@ class SettingsFragment : Fragment() {
 
         view.findViewById<Button>(R.id.settings_save_button).setOnClickListener {
             try {
+                val rooms = maxRooms.text.toString().toInt()
+                if (rooms <= 0) {
+                    Utils.sendDialog(MainActivity.context!!, "Количество комнат может быть таким!")
+                    return@setOnClickListener
+                }
                 MainActivity.settings.maxRooms = maxRooms.text.toString().toInt()
                 Utils.writeToFile(MainActivity.settings, MainActivity.settingsFile!!)
-                Utils.sendErrorDialog(MainActivity.context!!, "Сохранено!")
+                Utils.sendDialog(MainActivity.context!!, "Сохранено!")
             } catch (e: Exception) {
-                Utils.sendErrorDialog(MainActivity.context!!, e.message)
+                Utils.sendDialog(MainActivity.context!!, e.message)
+            }
+        }
+
+        view.findViewById<Button>(R.id.delete_data_button).setOnClickListener {
+            try {
+                MainActivity.instance?.supportFragmentManager?.commit {
+                    setCustomAnimations(R.anim.open_animator, R.anim.close_animator)
+                    replace(R.id.fragmentContainerView, RemoveAllDataFragment(), "delete_data")
+                    addToBackStack(null)
+                }
+            } catch (e: Exception) {
+                Utils.sendDialog(MainActivity.context!!, e.message)
             }
         }
     }

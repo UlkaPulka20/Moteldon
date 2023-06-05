@@ -5,4 +5,4 @@ import ulkapulka.me.android.app.moteldon.storage.serialization.LocalDateTimeSeri
 import java.time.LocalDateTime
 
 @Serializable
-data class GuestEnter(val guest: Guest, val type: EnterType, @Serializable(with = LocalDateTimeSerialization::class) val time: LocalDateTime)
+data class GuestEnter(val guestId: String, val type: EnterType, @Serializable(with = LocalDateTimeSerialization::class) val time: LocalDateTime)

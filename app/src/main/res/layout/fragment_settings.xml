@@ -46,8 +46,16 @@
         android:id="@+id/settings_save_button"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="600dp"
+        android:layout_marginTop="500dp"
         android:layout_marginStart="130dp"
         android:text="Сохранить" />
+
+    <Button
+        android:id="@+id/delete_data_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="600dp"
+        android:layout_marginStart="130dp"
+        android:text="Удалить все данные" />
 
 </FrameLayout>

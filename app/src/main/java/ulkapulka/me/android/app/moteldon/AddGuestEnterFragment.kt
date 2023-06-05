@@ -13,7 +13,6 @@ import ulkapulka.me.android.app.moteldon.storage.data.EnterType
 import ulkapulka.me.android.app.moteldon.storage.data.GuestEnter
 import ulkapulka.me.android.app.moteldon.utils.Utils
 import java.lang.Exception
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -56,7 +55,6 @@ class AddGuestEnterFragment : Fragment() {
         val time = view.findViewById<EditText>(R.id.guest_enter_time)
 
         time.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy")))
-
         guestName.setOnFocusChangeListener { _, _ ->
             if (guestName.text.toString() == "Имя гостя") {
                 guestName.setText("")
@@ -66,30 +64,39 @@ class AddGuestEnterFragment : Fragment() {
         view.findViewById<Button>(R.id.add_guest_enter_add_button).setOnClickListener {
             try {
                 val dataStorage = MainActivity.dataStorage
-                val guest = dataStorage.getGuestByName(guestName.text.toString())
+                val name = guestName.text.toString()
+                if (name.isEmpty()) {
+                    Utils.sendDialog(MainActivity.context!!, "Имя не может быть пустым!")
+                    return@setOnClickListener
+                }
+                val timeText = time.text.toString()
+                if (timeText.isEmpty()) {
+                    Utils.sendDialog(MainActivity.context!!, "Время не может быть пустым!")
+                    return@setOnClickListener
+                }
+                val guest = dataStorage.getGuestByName(name)
+                if (guest == null) {
+                    Utils.sendDialog(MainActivity.context!!, "Гость не найден!")
+                    return@setOnClickListener
+                }
                 val settedTime = try {
-                    LocalDateTime.parse(time.text.toString(), DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy"))
+                    LocalDateTime.parse(timeText, DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy"))
                 } catch (e: Exception) {
-                    val text = time.text.toString().replace(" ", "").split(":")
+                    val text = timeText.replace(" ", "").split(":")
                     LocalDateTime.now().withHour(text[0].toInt()).withMinute(text[1].toInt())
                 }
-                if (guest == null) {
-                    Utils.sendErrorDialog(MainActivity.context!!, "Гость не найден!")
-                } else {
-                    dataStorage.addEnter(GuestEnter(guest, when(isEntered.isChecked) {
-                        true -> EnterType.JOIN
-                        false -> EnterType.EXIT
-                    }, settedTime))
-
-                    Utils.sendErrorDialog(MainActivity.context!!, "Добавлено!")
-                    MainActivity.instance?.supportFragmentManager?.commit {
-                        setCustomAnimations(R.anim.open_animator, R.anim.close_animator)
-                        replace(R.id.fragmentContainerView, HomeFragment(), "home")
-                        addToBackStack(null)
-                    }
+                dataStorage.addEnter(GuestEnter(guest.getId(), when(isEntered.isChecked) {
+                    true -> EnterType.JOIN
+                    false -> EnterType.EXIT
+                }, settedTime))
+                Utils.sendDialog(MainActivity.context!!, "Добавлено!")
+                MainActivity.instance?.supportFragmentManager?.commit {
+                    setCustomAnimations(R.anim.open_animator, R.anim.close_animator)
+                    replace(R.id.fragmentContainerView, HomeFragment(), "home")
+                    addToBackStack(null)
                 }
             } catch (e: Exception) {
-                Utils.sendErrorDialog(MainActivity.context!!, e.message)
+                Utils.sendDialog(MainActivity.context!!, e.message)
             }
         }
 

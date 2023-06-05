@@ -7,9 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.fragment.app.commit
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import ulkapulka.me.android.app.moteldon.adapters.GuestAdapter
+import ulkapulka.me.android.app.moteldon.databinding.FragmentGuestsBinding
+import ulkapulka.me.android.app.moteldon.gestures.SwipeGesture
+import ulkapulka.me.android.app.moteldon.storage.data.Guest
 import ulkapulka.me.android.app.moteldon.utils.Utils
 
 // TODO: Rename parameter arguments, choose names that match
@@ -46,12 +51,23 @@ class GuestsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val context = MainActivity.context!!
+        val guestsView = view.findViewById<RecyclerView>(R.id.guestsView)
+        val dataStorage = MainActivity.dataStorage
 
-        val layout = view.findViewById<LinearLayout>(R.id.guests_names_list)
-        MainActivity.dataStorage.guests.reversed().forEach {
-            Utils.createGuestLayout(context, it, layout)
+        val adapter = GuestAdapter()
+        val list = dataStorage.guests
+        list.reverse()
+        adapter.data = list
+        val swipe = object : SwipeGesture() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                adapter.removeGuest(viewHolder.layoutPosition)
+            }
         }
+
+        ItemTouchHelper(swipe).attachToRecyclerView(guestsView)
+
+        guestsView.layoutManager = LinearLayoutManager(context)
+        guestsView.adapter = adapter
 
         view.findViewById<ImageButton>(R.id.guests_add_button).setOnClickListener {
             MainActivity.instance?.supportFragmentManager?.commit {
