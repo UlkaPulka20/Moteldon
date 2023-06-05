@@ -5,67 +5,154 @@
     android:layout_height="match_parent"
     tools:context=".SettingsFragment">
 
-    <TextView
-        android:id="@+id/settings"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:textColor="?colorSecondary"
-        android:textSize="30sp"
-        android:layout_height="wrap_content"
-        android:text="Настройки" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginBottom="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="false">
 
-    <View
-        android:layout_width="160dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginStart="20dp"
-        android:layout_height="2dp"
-        android:background="?colorOnSecondary"/>
+        <LinearLayout
+            android:id="@+id/settingsTop"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:baselineAligned="false">
 
-    <TextView
-        android:id="@+id/settings_rooms"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginStart="20dp"
-        android:textColor="?colorSecondary"
-        android:textSize="20sp"
-        android:layout_height="wrap_content"
-        android:text="Количество\nкомнат:" />
+            <RelativeLayout
+                android:gravity="bottom"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/settings_rooms_edit"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="105dp"
-        android:layout_marginStart="150dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="20"/>
 
-    <TextView
-        android:id="@+id/infoLabel"
-        android:layout_width="wrap_content"
-        android:layout_marginStart="250dp"
-        android:textColor="?colorOnSecondary"
-        android:textSize="14sp"
-        android:textAlignment="textEnd"
-        android:layout_height="wrap_content"
-        android:text="Moteldon\nСоздатель: UlkaPulka\nВерсия: 1.0.0" />
+                <TextView
+                    android:id="@+id/menuName"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="?colorSecondary"
+                    android:textSize="28sp"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/line"
+                    android:text="Настройки" />
 
-    <Button
-        android:id="@+id/settings_save_button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="500dp"
-        android:layout_marginStart="130dp"
-        android:text="Сохранить" />
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_height="2dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="?colorOnSecondary"/>
 
-    <Button
-        android:id="@+id/delete_data_button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="600dp"
-        android:layout_marginStart="130dp"
-        android:text="Удалить все данные" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:gravity="center|end"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/infoLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="250dp"
+                    android:textColor="?colorOnSecondary"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="20dp"
+                    android:textAlignment="textEnd"
+                    android:layout_height="wrap_content"
+                    android:text="Moteldon\nСоздатель: UlkaPulka\nВерсия: 1.0.0" />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:baselineAligned="false">
+
+            <RelativeLayout
+                android:gravity="center|end"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/settings_rooms"
+                    android:layout_width="wrap_content"
+                    android:textColor="?colorSecondary"
+                    android:textSize="20sp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:text="Количество комнат:" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:gravity="center|start"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/settings_rooms_edit"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:text="20"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:baselineAligned="false">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:baselineAligned="false">
+
+            <Button
+                android:id="@+id/settings_save_button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Сохранить" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:baselineAligned="false">
+
+            <Button
+                android:id="@+id/delete_data_button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Удалить все данные" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

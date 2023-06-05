@@ -6,98 +6,228 @@
     android:layout_height="match_parent"
     tools:context=".AddGuestFragment">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginBottom="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="false">
 
-    <Button
-        android:id="@+id/add_guest_add_button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="500dp"
-        android:layout_marginStart="130dp"
-        android:text="Добавить" />
+        <LinearLayout
+            android:id="@+id/settingsTop"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:baselineAligned="false">
 
-    <Button
-        android:id="@+id/add_guest_back_button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="550dp"
-        android:layout_marginStart="130dp"
-        android:text="Назад" />
+            <RelativeLayout
+                android:gravity="bottom"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/guestLabel"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="113dp"
-        android:layout_marginStart="14dp"
-        android:textColor="?colorSecondary"
-        android:textSize="16sp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|start"
-        android:text="Имя Гостя:" />
 
-    <EditText
-        android:id="@+id/guest_name_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginStart="96dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Имя" />
+                <TextView
+                    android:id="@+id/menuName"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="?colorSecondary"
+                    android:textSize="28sp"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/line"
+                    android:text="Добавление гостя" />
 
-    <TextView
-        android:id="@+id/guestLabelFirst"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="205dp"
-        android:layout_marginStart="15dp"
-        android:textColor="?colorSecondary"
-        android:textSize="16sp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|start"
-        android:text="День\nрождения:" />
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_height="2dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="?colorOnSecondary"/>
 
-    <com.santalu.maskara.widget.MaskEditText
-        android:id="@+id/guest_birthday_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:layout_marginStart="96dp"
-        android:ems="10"
-        android:inputType="number"
-        app:mask="__.__.____"
-        app:maskCharacter="_"
-        app:maskStyle="completable"
-        android:text="00.00.0000" />
+            </RelativeLayout>
 
-    <TextView
-        android:id="@+id/roomLabel"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="314dp"
-        android:layout_marginStart="20dp"
-        android:textColor="?colorSecondary"
-        android:textSize="16sp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|start"
-        android:text="Комната:" />
+            <RelativeLayout
+                android:gravity="center|end"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/timeLabelSecond"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="240dp"
-        android:layout_marginStart="120dp"
-        android:textColor="?colorOnSecondary"
-        android:textSize="14sp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|start"
-        android:text="(К примеру: 03.06.2003)" />
+            </RelativeLayout>
 
-    <EditText
-        android:id="@+id/guest_room_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
-        android:layout_marginStart="96dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="Комната"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:baselineAligned="false">
+
+            <RelativeLayout
+                android:gravity="center|end"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/guestNameLabel"
+                    android:layout_width="wrap_content"
+                    android:textColor="?colorSecondary"
+                    android:textSize="20sp"
+                    android:layout_height="wrap_content"
+                    android:text="Имя Гостя:" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:gravity="center|start"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/guest_name_edit"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:text="Имя"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:baselineAligned="false">
+
+            <RelativeLayout
+                android:gravity="center|end"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/guestBirthdayLabel"
+                    android:layout_width="wrap_content"
+                    android:textColor="?colorSecondary"
+                    android:textSize="20sp"
+                    android:layout_height="wrap_content"
+                    android:text="День рождения:" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:gravity="center|start"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.santalu.maskara.widget.MaskEditText
+                    android:id="@+id/guest_birthday_edit"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="number"
+                    app:mask="__.__.____"
+                    app:maskCharacter="_"
+                    app:maskStyle="completable"
+                    android:text="00.00.0000" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:baselineAligned="false">
+
+            <RelativeLayout
+                android:gravity="center|end"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/roomLabel"
+                    android:layout_width="wrap_content"
+                    android:textColor="?colorSecondary"
+                    android:textSize="20sp"
+                    android:layout_height="wrap_content"
+                    android:text="Комната:" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:gravity="center|start"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/guest_room_edit"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:text="Комната"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:baselineAligned="false">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:baselineAligned="false">
+
+            <Button
+                android:id="@+id/add_guest_add_button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Добавить" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:baselineAligned="false">
+
+            <Button
+                android:id="@+id/add_guest_back_button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Назад" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -1,39 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
-    <TextView
-        android:id="@+id/timearrival"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:textColor="?colorSecondary"
-        android:textSize="30sp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|start"
-        android:text="Время\nприбывания" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:baselineAligned="false">
 
-    <ImageButton
-        android:id="@+id/home_add_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="330dp"
-        android:layout_marginTop="34dp"
-        android:background="@drawable/rounded_button"
-        android:contentDescription="@string/back"
-        android:scaleType="centerCrop"
-        android:src="@drawable/baseline_add_box_24" />
+        <RelativeLayout
+            android:gravity="bottom"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <View
-        android:layout_width="190dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginStart="20dp"
-        android:layout_height="2dp"
-        android:background="?colorOnSecondary"/>
+
+            <TextView
+                android:id="@+id/menuName"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="5dp"
+                android:textColor="?colorSecondary"
+                android:textSize="28sp"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/line"
+                android:text="Время\nприбывания" />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_height="2dp"
+                android:layout_alignParentBottom="true"
+                android:background="?colorOnSecondary"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:gravity="center|end"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/home_add_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/rounded_button"
+                android:contentDescription="@string/back"
+                android:scaleType="centerCrop"
+                android:src="@drawable/baseline_add_box_24" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/namesView"

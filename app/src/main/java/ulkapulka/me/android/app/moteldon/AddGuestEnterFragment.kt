@@ -56,6 +56,11 @@ class AddGuestEnterFragment : Fragment() {
         val time = view.findViewById<MaskEditText>(R.id.guest_enter_time)
 
         time.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy")))
+        guestName.setOnFocusChangeListener { _, _ ->
+            if (guestName.text.toString().lowercase().replace(" ", "") == "имягостя") {
+                guestName.setText("")
+            }
+        }
 
         view.findViewById<Button>(R.id.add_guest_enter_add_button).setOnClickListener {
             try {

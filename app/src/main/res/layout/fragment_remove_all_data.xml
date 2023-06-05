@@ -6,30 +6,70 @@
     android:gravity="center_horizontal"
     tools:context=".RemoveAllDataFragment">
 
-    <TextView
-        android:id="@+id/removeAllDataText"
-        android:layout_width="wrap_content"
-        android:textColor="?colorSecondary"
-        android:layout_marginTop="200dp"
-        android:layout_marginStart="30dp"
-        android:textSize="30sp"
-        android:textAlignment="center"
-        android:layout_height="wrap_content"
-        android:text="Вы действительно\nхотите удалить\nвсе данные?" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="false">
 
-    <Button
-        android:id="@+id/delete_yes_button"
-        android:layout_width="130dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="400dp"
-        android:text="Да" />
 
-    <Button
-        android:id="@+id/delete_no_button"
-        android:layout_width="130dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="400dp"
-        android:layout_marginStart="200dp"
-        android:text="Нет" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|bottom"
+            android:layout_weight="1"
+            android:baselineAligned="false">
+
+            <TextView
+                android:id="@+id/removeAllDataText"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:textColor="?colorSecondary"
+                android:textSize="30sp"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:text="Вы действительно\nхотите удалить\nвсе данные?" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:baselineAligned="false">
+
+            <RelativeLayout
+                android:gravity="center|top"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/delete_yes_button"
+                    android:layout_width="130dp"
+                    android:layout_height="70dp"
+                    android:text="Да" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:gravity="center|top"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/delete_no_button"
+                    android:layout_width="130dp"
+                    android:layout_height="70dp"
+                    android:text="Нет" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

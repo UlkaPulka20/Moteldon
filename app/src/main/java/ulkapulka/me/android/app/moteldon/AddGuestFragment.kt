@@ -57,6 +57,11 @@ class AddGuestFragment : Fragment() {
 
         guestBirthday.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
         guestRoom.setText("1")
+        guestName.setOnFocusChangeListener { _, _ ->
+            if (guestName.text.toString().lowercase().replace(" ", "") == "имя") {
+                guestName.setText("")
+            }
+        }
 
         view.findViewById<Button>(R.id.add_guest_add_button).setOnClickListener {
             try {
