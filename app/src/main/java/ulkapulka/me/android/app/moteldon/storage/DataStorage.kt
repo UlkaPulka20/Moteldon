@@ -25,12 +25,6 @@ class DataStorage {
         saveToFile()
     }
 
-    fun replaceEnter(enter: GuestEnter) {
-        enters.removeIf { it.guestId == enter.guestId && it.type == enter.type && it.time.isEqual(enter.time) }
-        enters.add(enter)
-        saveToFile()
-    }
-
     fun removeEnter(enter: GuestEnter) {
         enters.removeIf { it.guestId == enter.guestId && it.type == enter.type && it.time.isEqual(enter.time) }
         saveToFile()
