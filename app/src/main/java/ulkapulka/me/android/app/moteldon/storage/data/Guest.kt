@@ -5,9 +5,4 @@ import ulkapulka.me.android.app.moteldon.storage.serialization.LocalDateSerializ
 import java.time.LocalDate
 
 @Serializable
-data class Guest(val name: String, @Serializable(with = LocalDateSerialization::class) val birthday: LocalDate, val room: Room) {
-
-    fun getId(): String {
-        return "$name-${birthday.year}-${birthday.month}-${birthday.dayOfMonth}-${room.number}"
-    }
-}
+data class Guest(val id: String, var name: String, @Serializable(with = LocalDateSerialization::class) var birthday: LocalDate, var room: Room)

@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.commit
+import com.santalu.maskara.widget.MaskEditText
 import ulkapulka.me.android.app.moteldon.storage.data.Guest
 import ulkapulka.me.android.app.moteldon.storage.data.Room
 import ulkapulka.me.android.app.moteldon.utils.Utils
 import java.lang.Exception
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.UUID
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -50,16 +52,11 @@ class AddGuestFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val guestName = view.findViewById<EditText>(R.id.guest_name_edit)
-        val guestBirthday = view.findViewById<EditText>(R.id.guest_birthday_edit)
+        val guestBirthday = view.findViewById<MaskEditText>(R.id.guest_birthday_edit)
         val guestRoom = view.findViewById<EditText>(R.id.guest_room_edit)
 
         guestBirthday.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
         guestRoom.setText("1")
-        guestName.setOnFocusChangeListener { _, _ ->
-            if (guestName.text.toString() == "Имя") {
-                guestName.setText("")
-            }
-        }
 
         view.findViewById<Button>(R.id.add_guest_add_button).setOnClickListener {
             try {
@@ -86,7 +83,8 @@ class AddGuestFragment : Fragment() {
                     return@setOnClickListener
                 }
                 val settedDate = LocalDate.parse(birthdayText, DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-                dataStorage.addGuest(Guest(name,
+                dataStorage.addGuest(Guest(UUID.randomUUID().toString(),
+                    name,
                     settedDate,
                     Room(roomNumber)
                 ))

@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 import androidx.fragment.app.commit
+import com.santalu.maskara.widget.MaskEditText
 import ulkapulka.me.android.app.moteldon.storage.data.EnterType
 import ulkapulka.me.android.app.moteldon.storage.data.GuestEnter
 import ulkapulka.me.android.app.moteldon.utils.Utils
@@ -52,14 +53,9 @@ class AddGuestEnterFragment : Fragment() {
 
         val guestName = view.findViewById<EditText>(R.id.guest_enter_name_edit)
         val isEntered = view.findViewById<RadioButton>(R.id.enter_button)
-        val time = view.findViewById<EditText>(R.id.guest_enter_time)
+        val time = view.findViewById<MaskEditText>(R.id.guest_enter_time)
 
         time.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy")))
-        guestName.setOnFocusChangeListener { _, _ ->
-            if (guestName.text.toString() == "Имя гостя") {
-                guestName.setText("")
-            }
-        }
 
         view.findViewById<Button>(R.id.add_guest_enter_add_button).setOnClickListener {
             try {
@@ -85,7 +81,7 @@ class AddGuestEnterFragment : Fragment() {
                     val text = timeText.replace(" ", "").split(":")
                     LocalDateTime.now().withHour(text[0].toInt()).withMinute(text[1].toInt())
                 }
-                dataStorage.addEnter(GuestEnter(guest.getId(), when(isEntered.isChecked) {
+                dataStorage.replaceEnter(GuestEnter(guest.id, when(isEntered.isChecked) {
                     true -> EnterType.JOIN
                     false -> EnterType.EXIT
                 }, settedTime))

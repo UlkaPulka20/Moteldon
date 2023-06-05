@@ -59,8 +59,16 @@ class GuestsFragment : Fragment() {
         list.reverse()
         adapter.data = list
         val swipe = object : SwipeGesture() {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            override fun onLeftSwipe(viewHolder: RecyclerView.ViewHolder) {
                 adapter.removeGuest(viewHolder.layoutPosition)
+            }
+
+            override fun onRightSwipe(viewHolder: RecyclerView.ViewHolder) {
+                MainActivity.instance?.supportFragmentManager?.commit {
+                    setCustomAnimations(R.anim.open_animator, R.anim.close_animator)
+                    replace(R.id.fragmentContainerView, EditGuestFragment(adapter.getGuest(viewHolder.layoutPosition)), "guest_edit")
+                    addToBackStack(null)
+                }
             }
         }
 

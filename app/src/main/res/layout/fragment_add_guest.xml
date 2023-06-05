@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -54,15 +55,18 @@
         android:layout_gravity="top|start"
         android:text="День\nрождения:" />
 
-    <EditText
+    <com.santalu.maskara.widget.MaskEditText
         android:id="@+id/guest_birthday_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:layout_marginStart="96dp"
         android:ems="10"
-        android:inputType="date"
-        android:text="День рождения" />
+        android:inputType="number"
+        app:mask="__.__.____"
+        app:maskCharacter="_"
+        app:maskStyle="completable"
+        android:text="00.00.0000" />
 
     <TextView
         android:id="@+id/roomLabel"

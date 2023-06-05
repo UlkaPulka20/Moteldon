@@ -21,13 +21,13 @@ class GuestDiffUtil(
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldPerson = oldList[oldItemPosition]
         val newPerson = newList[newItemPosition]
-        return oldPerson.name == newPerson.name
+        return oldPerson.id == newPerson.id
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldPerson = oldList[oldItemPosition]
         val newPerson = newList[newItemPosition]
-        return oldPerson.name == newPerson.name
+        return oldPerson.id == newPerson.id
     }
 }
 
@@ -40,7 +40,7 @@ class GuestAdapter : RecyclerView.Adapter<GuestAdapter.GuestViewHolder>(), View.
             personDiffUtilResult.dispatchUpdatesTo(this@GuestAdapter)
         }
 
-    override fun getItemCount(): Int = MainActivity.dataStorage.guests.size
+    override fun getItemCount(): Int = data.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GuestViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -74,6 +74,10 @@ class GuestAdapter : RecyclerView.Adapter<GuestAdapter.GuestViewHolder>(), View.
         data.remove(guest)
         notifyDataSetChanged()
         Utils.sendDialog(MainActivity.context!!, "Гость '${guest.name}' удалён")
+    }
+
+    fun getGuest(position: Int): Guest {
+        return data[position]
     }
 
     class GuestViewHolder(val binding: FragmentItemGuestBinding) : RecyclerView.ViewHolder(binding.root)

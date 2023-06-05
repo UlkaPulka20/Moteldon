@@ -7,6 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import ulkapulka.me.android.app.moteldon.adapters.GuestAdapter
+import ulkapulka.me.android.app.moteldon.adapters.GuestEnterAdapter
+import ulkapulka.me.android.app.moteldon.adapters.RoomAdapter
+import ulkapulka.me.android.app.moteldon.gestures.SwipeGesture
+import ulkapulka.me.android.app.moteldon.storage.data.Room
 import ulkapulka.me.android.app.moteldon.utils.Utils
 
 // TODO: Rename parameter arguments, choose names that match
@@ -46,13 +54,15 @@ class RoomsFragment : Fragment() {
         val context = MainActivity.context!!
         val dataStorage = MainActivity.dataStorage
 
-        val layout = view.findViewById<LinearLayout>(R.id.rooms_names_list)
-        for (i in 1..MainActivity.settings.maxRooms) {
-            val guests = dataStorage.getGuestsByRoom(i)
-            if (guests.isNotEmpty()) {
-                Utils.createRoomsLayout(context, i, guests, layout)
-            }
-        }
+        val roomsView = view.findViewById<RecyclerView>(R.id.roomsView)
+
+        val adapter = RoomAdapter()
+        val list = dataStorage.getRooms()
+        list.reverse()
+        adapter.data = list
+
+        roomsView.layoutManager = LinearLayoutManager(context)
+        roomsView.adapter = adapter
 
         view.findViewById<TextView>(R.id.rooms_count).text = "${dataStorage.countRooms()}/${MainActivity.settings.maxRooms}"
     }

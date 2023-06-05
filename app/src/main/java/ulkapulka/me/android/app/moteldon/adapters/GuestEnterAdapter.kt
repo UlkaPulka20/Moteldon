@@ -12,6 +12,7 @@ import ulkapulka.me.android.app.moteldon.R
 import ulkapulka.me.android.app.moteldon.databinding.FragmentItemGuestBinding
 import ulkapulka.me.android.app.moteldon.databinding.FragmentItemGuestEnterBinding
 import ulkapulka.me.android.app.moteldon.storage.data.EnterType
+import ulkapulka.me.android.app.moteldon.storage.data.Guest
 import ulkapulka.me.android.app.moteldon.storage.data.GuestEnter
 import ulkapulka.me.android.app.moteldon.utils.Utils
 import java.time.format.DateTimeFormatter
@@ -44,7 +45,7 @@ class GuestEnterAdapter : RecyclerView.Adapter<GuestEnterAdapter.GuestEnterViewH
             personDiffUtilResult.dispatchUpdatesTo(this@GuestEnterAdapter)
         }
 
-    override fun getItemCount(): Int = MainActivity.dataStorage.enters.size
+    override fun getItemCount(): Int = data.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GuestEnterViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -88,6 +89,10 @@ class GuestEnterAdapter : RecyclerView.Adapter<GuestEnterAdapter.GuestEnterViewH
         data.remove(enter)
         notifyDataSetChanged()
         Utils.sendDialog(MainActivity.context!!, "Запись удалена!")
+    }
+
+    fun getEnter(position: Int): GuestEnter {
+        return data[position]
     }
 
     class GuestEnterViewHolder(val binding: FragmentItemGuestEnterBinding) : RecyclerView.ViewHolder(binding.root)

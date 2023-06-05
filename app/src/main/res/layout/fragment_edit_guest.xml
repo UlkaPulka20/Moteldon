@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditGuestFragment">
+
+
+    <Button
+        android:id="@+id/edit_guest_save_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="500dp"
+        android:layout_marginStart="130dp"
+        android:text="Сохранить" />
+
+    <Button
+        android:id="@+id/edit_guest_back_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="550dp"
+        android:layout_marginStart="130dp"
+        android:text="Назад" />
+
+    <TextView
+        android:id="@+id/guestLabel"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="113dp"
+        android:layout_marginStart="14dp"
+        android:textColor="?colorSecondary"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:text="Имя Гостя:" />
+
+    <EditText
+        android:id="@+id/edit_guest_name_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="96dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Имя" />
+
+    <TextView
+        android:id="@+id/guestLabelFirst"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="205dp"
+        android:layout_marginStart="15dp"
+        android:textColor="?colorSecondary"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:text="День\nрождения:" />
+
+    <com.santalu.maskara.widget.MaskEditText
+        android:id="@+id/edit_guest_birthday_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_marginStart="96dp"
+        android:ems="10"
+        android:inputType="number"
+        app:mask="__.__.____"
+        app:maskCharacter="_"
+        app:maskStyle="completable"
+        android:text="00.00.0000" />
+
+    <TextView
+        android:id="@+id/roomLabel"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="314dp"
+        android:layout_marginStart="20dp"
+        android:textColor="?colorSecondary"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:text="Комната:" />
+
+    <TextView
+        android:id="@+id/timeLabelSecond"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="240dp"
+        android:layout_marginStart="120dp"
+        android:textColor="?colorOnSecondary"
+        android:textSize="14sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:text="(К примеру: 03.06.2003)" />
+
+    <EditText
+        android:id="@+id/edit_guest_room_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:layout_marginStart="96dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Комната"/>
+
+</RelativeLayout>

@@ -62,8 +62,16 @@ class HomeFragment : Fragment() {
         data.sortByDescending { it.time }
         adapter.data = data
         val swipe = object : SwipeGesture() {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            override fun onLeftSwipe(viewHolder: RecyclerView.ViewHolder) {
                 adapter.removeEnter(viewHolder.layoutPosition)
+            }
+
+            override fun onRightSwipe(viewHolder: RecyclerView.ViewHolder) {
+                MainActivity.instance?.supportFragmentManager?.commit {
+                    setCustomAnimations(R.anim.open_animator, R.anim.close_animator)
+                    replace(R.id.fragmentContainerView, EditGuestEnterFragment(adapter.getEnter(viewHolder.layoutPosition)), "guest_edit")
+                    addToBackStack(null)
+                }
             }
         }
 

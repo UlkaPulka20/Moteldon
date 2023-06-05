@@ -25,6 +25,12 @@ class DataStorage {
         saveToFile()
     }
 
+    fun replaceEnter(enter: GuestEnter) {
+        enters.removeIf { it.guestId == enter.guestId && it.type == enter.type && it.time.isEqual(enter.time) }
+        enters.add(enter)
+        saveToFile()
+    }
+
     fun removeEnter(enter: GuestEnter) {
         enters.removeIf { it.guestId == enter.guestId && it.type == enter.type && it.time.isEqual(enter.time) }
         saveToFile()
@@ -36,9 +42,15 @@ class DataStorage {
         saveToFile()
     }
 
+    fun replaceGuest(guest: Guest) {
+        guests.removeIf { it.id == guest.id }
+        guests.add(guest)
+        saveToFile()
+    }
+
     fun removeGuest(guest: Guest) {
-        guests.removeIf { it.getId() == guest.getId() }
-        enters.removeIf { it.guestId == guest.getId() }
+        guests.removeIf { it.id == guest.id }
+        enters.removeIf { it.guestId == guest.id }
         saveToFile()
     }
 
@@ -49,7 +61,7 @@ class DataStorage {
     fun getGuest(guestEnter: GuestEnter): Guest? {
         val id = guestEnter.guestId
         guests.forEach {
-            if (id == it.getId()) {
+            if (id == it.id) {
                 return it
             }
         }
@@ -74,14 +86,24 @@ class DataStorage {
         return null
     }
 
-    fun getGuestsByRoom(room: Int): List<Guest> {
+    fun getGuestsByRoom(room: Room): List<Guest> {
         val list = mutableListOf<Guest>()
         guests.forEach {
-            if (it.room.number == room) {
+            if (it.room.number == room.number) {
                 list.add(it)
             }
         }
         return list
+    }
+
+    fun getRooms(): MutableList<Room> {
+        val rooms = mutableListOf<Room>()
+        guests.forEach {
+            if (!rooms.contains(it.room)) {
+                rooms.add(it.room)
+            }
+        }
+        return rooms
     }
 
     fun countRooms(): Int {
