@@ -86,7 +86,7 @@ class AddGuestEnterFragment : Fragment() {
                     val text = timeText.replace(" ", "").split(":")
                     LocalDateTime.now().withHour(text[0].toInt()).withMinute(text[1].toInt())
                 }
-                dataStorage.replaceEnter(GuestEnter(guest.id, when(isEntered.isChecked) {
+                dataStorage.addEnter(GuestEnter(guest.id, when(isEntered.isChecked) {
                     true -> EnterType.JOIN
                     false -> EnterType.EXIT
                 }, settedTime))
